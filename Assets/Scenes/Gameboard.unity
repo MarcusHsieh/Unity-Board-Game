@@ -633,7 +633,7 @@ MonoBehaviour:
   currCoins: 0
   currTile: 0
   onEndTile: 0
-  Poffset: {x: 0, y: 0}
+  endTile: 0
 --- !u!1 &978162248
 GameObject:
   m_ObjectHideFlags: 0
@@ -11801,7 +11801,7 @@ MonoBehaviour:
   currCoins: 0
   currTile: 0
   onEndTile: 0
-  Poffset: {x: 0, y: 0}
+  endTile: 0
 --- !u!1 &2124305136
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,6 +60,7 @@ namespace MookCode.NPlayers
         //Debug.Log("Use item");
         // Open player's item menu
         // will implement later
-        public abstract void setEndTile();
+        public abstract void MoveOffset();
+    
     }
 }

@@ -2,48 +2,44 @@
 
 //using System.Collections;
 //using System.Collections.Generic;
+/*using System;
 using UnityEngine;
-using MookCode.Gameboard.Tiles;
-using MookCode.NPlayers;
 
-namespace MookCode.GlobalData
-{
-    public class Data : MonoBehaviour {
 
-        public static int speed = 25;
-        public static float smoothTime = 0.5f;
-        public static float maxSpeed = Mathf.Infinity;
-        private int tempNum = 0;
-        public static Players[] playersArr = new Players[4];
-        // may have playerList in other scripts, need to change to playerArr
-        public static Vector2[] pOffsetArr = new Vector2[4];
-        public static int currPlayer = 0;
-        //public static TileInfo[] tileArr = new TileInfo[28];
+namespace MookCode.Gameboard.Tiles {
+    public class TileInfo : TileEvents {
+        public static TileInfo[] tileArr = new TileInfo[28];
+
+        private Vector2 pos;
+        private int pOnTile; // for visuals so players aren't stacked if more than one on a tile
+        private string eventName;
         
-        
-        private void Start() {
 
-            Debug.Log(FindObjectOfType<P0>().getCurrTile());
-            var players = FindObjectsOfType<Players>();
-            foreach (var player in players) { // make array of the players
-                //Debug.Log(">> "+player);
-                playersArr[tempNum] = player;
-                tempNum++;
-            }
+        public TileInfo(Vector2 pos, string eventName) {
+            this.pos = pos;
+            pOnTile = 0;
+            this.eventName = eventName;
+        }
 
-            //players[0].getCurrCoins();
-            players[0].Move();
-            //players[0].
-            // Poffset in data
+        public Vector2 getPos() {
+            return pos;
+        }
 
-            //playersList[0] = P0;
+        public int getpOnTile() {
+            return pOnTile;
+        }
 
-            pOffsetArr[0] = new Vector2(-0.205f, 0.206f);
-            pOffsetArr[1] = new Vector2(0.195f, 0.206f);
-            // need to update pOffset for p2 and p3
-            //pOffsetArr[2] = new Vector2(0.195f, 0.206f);
-            //pOffsetArr[3] = new Vector2(0.195f, 0.206f);
+        public string getEventName() {
+            
+            return eventName;
+        }
 
+        private void Awake() {
+            /* maybe just make scripts for START,ADDCOINS,MINCOINS,TROPHY, stemmed
+             * off of abstract TileEvents, 
+             * Do like what I did with Players
+               
+             */
             /*tileArr[0] = new TileInfo(GameObject.Find("00").transform.position, "START");
             tileArr[1] = new TileInfo(GameObject.Find("01").transform.position, "ADDCOINS");
             tileArr[2] = new TileInfo(GameObject.Find("02").transform.position, "MINCOINS");
@@ -71,12 +67,12 @@ namespace MookCode.GlobalData
             tileArr[24] = new TileInfo(GameObject.Find("24").transform.position, "ADDCOINS");
             tileArr[25] = new TileInfo(GameObject.Find("25").transform.position, "ADDCOINS");
             tileArr[26] = new TileInfo(GameObject.Find("26").transform.position, "ADDCOINS");
-            tileArr[27] = new TileInfo(GameObject.Find("27").transform.position, "ADDCOINS");*/
-        }
-        private void Update() {
+            tileArr[27] = new TileInfo(GameObject.Find("27").transform.position, "ADDCOINS");
             
         }
 
-        //Players[] playerList = Players[0, 1, 2, 3];
+        private void Start() {
+            Debug.Log(">"+tileArr[1].getPos());
+        }
     }
-}
+}*/

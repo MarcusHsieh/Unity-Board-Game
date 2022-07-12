@@ -67,10 +67,10 @@ namespace MookCode.Core
 
         public void runTileEvent() {
             // if passing trophy or start tile OR on end tile run the event
-            if (FindObjectOfType<TileInfo>().getEventName().Equals("TROPHY") || FindObjectOfType<TileInfo>().getEventName().Equals("START") || onEndTile == true) {
+            /*if (FindObjectOfType<TileInfo>().getEventName().Equals("TROPHY") || FindObjectOfType<TileInfo>().getEventName().Equals("START") || onEndTile == true) {
                 // check after every move()                     
                 //FindObjectOfType<TileEvents>().RunTileEvent( Data.tileArr[ currTile ].getEventName() ); 
-            }
+            }*/
             
         }
     }

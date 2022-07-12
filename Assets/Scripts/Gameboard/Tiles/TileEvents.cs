@@ -8,7 +8,11 @@ using UnityEngine;
 namespace MookCode.Gameboard.Tiles
 {
     public abstract class TileEvents : MonoBehaviour {
-        public void RunTileEvent(string eventName) {
+
+        public int pOnTile = 0;
+        public abstract void RunTileEvent();
+
+        /*public void RunTileEvent(string eventName) {
             if (eventName.Equals("START")) {
                 Debug.Log(eventName);
                 // +8 coins WHEN PASS, don't need to land
@@ -25,6 +29,6 @@ namespace MookCode.Gameboard.Tiles
                 Debug.Log(eventName);
                 // Trophy prompt
             }
-        }
+        }*/
     }
 }

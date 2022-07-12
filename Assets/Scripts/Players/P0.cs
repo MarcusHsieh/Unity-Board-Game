@@ -16,7 +16,7 @@ namespace MookCode.NPlayers
             Debug.Log(gameObject.name + " moving");
 
             // Get next tile pos
-            nextTile = TileInfo.tileArr[(getCurrTile() + 1) % 27].getPos();
+            //nextTile = TileInfo.tileArr[(getCurrTile() + 1) % 27].getPos();
             
             // Move one tile forward
             // Vector2.SmoothDamp (?)
@@ -29,7 +29,11 @@ namespace MookCode.NPlayers
             //setEndTile(getDiceRoll(), getCurrTile());
         }
 
+
         public override void UseItem() {
+            throw new System.NotImplementedException();
+        }
+        public override void MoveOffset() {
             throw new System.NotImplementedException();
         }
 
