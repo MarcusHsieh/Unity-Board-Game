@@ -3,6 +3,8 @@
 //using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
+using MookCode.Gameboard.Tiles;
+using MookCode.GlobalData;
 
 
 namespace MookCode.NPlayers
@@ -14,11 +16,14 @@ namespace MookCode.NPlayers
         private int currTile;
          [SerializeField]
         private bool onEndTile;
+         [SerializeField]
+        private int endTile;
 
         private void Awake() {
             currCoins = 10;
             currTile = 0;
             onEndTile = true;
+            endTile = 0;
 
         }
 
@@ -33,20 +38,28 @@ namespace MookCode.NPlayers
             return onEndTile;
         }
 
-
-        public void Move() {
-            Debug.Log(gameObject.name + " moving");
-            // Move one tile forward
-            // Update currTile
-            // Check if onEndTile, if yes then onEndTile = true
-            
-            
+        public void setCurrCoins(int n) { // for testing
+            currCoins = n;
         }
 
-        public void UseItem() {
-            Debug.Log("Use item");
-            // Open player's item menu
-            // will implement later
+        public void setEndTile(/*int diceRoll, */int currTile) {
+            endTile = (/*DiceRollFunc + */currTile) % 27;
         }
+
+        public void incCurrTile() {
+            currTile++;
+        }
+
+
+
+
+
+        public abstract void Move(); 
+        // each Move() in P0, P1, P2, P3
+        public abstract void UseItem();
+        //Debug.Log("Use item");
+        // Open player's item menu
+        // will implement later
+        public abstract void setEndTile();
     }
 }

@@ -23,7 +23,7 @@ namespace MookCode.Core
          [SerializeField]
         private int currTile;
          [SerializeField]
-        private bool onEndTile;
+        private bool onEndTile; // for GM locally
 
 
         void Start() {
@@ -69,7 +69,7 @@ namespace MookCode.Core
             // if passing trophy or start tile OR on end tile run the event
             if (FindObjectOfType<TileInfo>().getEventName().Equals("TROPHY") || FindObjectOfType<TileInfo>().getEventName().Equals("START") || onEndTile == true) {
                 // check after every move()                     
-                FindObjectOfType<TileEvents>().RunTileEvent( Data.tileArr[ currTile ].getEventName() ); 
+                //FindObjectOfType<TileEvents>().RunTileEvent( Data.tileArr[ currTile ].getEventName() ); 
             }
             
         }
