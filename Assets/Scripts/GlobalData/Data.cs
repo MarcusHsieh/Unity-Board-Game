@@ -25,15 +25,12 @@ namespace MookCode.GlobalData
         private void Start() {
             setTileArr();
             //tileArr[0].GetComponent<ADDCOINS>().RunTileEvent();
-            tileComponents = tileArr[0].GetComponents(typeof(Component));
+            
             Debug.Log(tileComponents.Length); // get # of components in GameObject
             /*foreach (Component component in tileComponents) {
                 Debug.Log(component.ToString());
             }*/
-            /*
-            var a = tileArr[0].GetComponents(typeof(Component))[1] as TileEvents;
-            a.RunTileEvent(); // runs whatever event the tile has
-            */
+ 
             tempNum = 0;
             Debug.Log(FindObjectOfType<P0>().getCurrTile());
             var players = FindObjectsOfType<Players>();

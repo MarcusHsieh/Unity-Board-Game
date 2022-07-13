@@ -48,11 +48,19 @@ namespace MookCode.Core
             //     Move();
             //     runTileEvent();
 
+            // change for loop to the dice roll later
             for (int i = 0; i < 5; i++) {
-                Data.playersArr[Data.currPlayer].Move();
-                var a = Data.tileArr[0].GetComponents(typeof(Component))
-                    [Data.playersArr[Data.currPlayer].getCurrTile()] as TileEvents;
-                a.RunTileEvent(); // runs whatever event the tile has
+                Data.playersArr[Data.currPlayer].Move(); // Move current player
+
+                Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
+                    .GetComponents(typeof(Component)); // grab components in current tile
+                if (Data.tileComponents.Length > 1) { // if component list has more than just transform
+                    var tileRunner = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
+                        .GetComponents(typeof(Component))[1] as TileEvents; 
+                        // can change [1] to [Data.tileComponents.Length-1] if trying to add more components later
+                    tileRunner.RunTileEvent(); // runs whatever event the tile has
+                }
+                
             }
 
             Data.currPlayer++;
