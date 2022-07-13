@@ -48,6 +48,13 @@ namespace MookCode.Core
             //     Move();
             //     runTileEvent();
 
+            for (int i = 0; i < 5; i++) {
+                Data.playersArr[Data.currPlayer].Move();
+                var a = Data.tileArr[0].GetComponents(typeof(Component))
+                    [Data.playersArr[Data.currPlayer].getCurrTile()] as TileEvents;
+                a.RunTileEvent(); // runs whatever event the tile has
+            }
+
             Data.currPlayer++;
 
         }

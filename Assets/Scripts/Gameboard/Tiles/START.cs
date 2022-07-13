@@ -10,6 +10,7 @@ namespace MookCode.Gameboard.Tiles {
         public override void RunTileEvent() {
             Debug.Log("> START");
             // +8 coins WHEN PASS, don't need to land
+            // needs to be generic for Data.currPlayer
         }
         // smth for if pOnTile>1, offset ppl on the tile
     }
