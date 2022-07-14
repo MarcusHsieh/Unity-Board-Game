@@ -10,10 +10,15 @@ namespace MookCode.GlobalData
 {
     public class Data : MonoBehaviour {
 
-        public static int speed = 100;
+        public static bool isEndGame = false;
+        public static bool isEndRound = false;
+
+        // inc speed seems to fix not moving enough
+        public static int speed = 500; 
         public static float smoothTime = 0.5f;
         public static float maxSpeed = Mathf.Infinity;
         private int tempNum = 0;
+
         public static Players[] playersArr = new Players[4];
         // may have playerList in other scripts, need to change to playerArr
         public static Vector2[] pOffsetArr = new Vector2[4];
@@ -22,18 +27,19 @@ namespace MookCode.GlobalData
         public static GameObject[] tileArr = new GameObject[28];
         public static Component[] tileComponents = new Component[3];
 
+        public static int diceRoll = 0;
 
         private void Awake() {
             setTileArr();
             //tileArr[0].GetComponent<ADDCOINS>().RunTileEvent();
             
-            Debug.Log(tileComponents.Length); // get # of components in GameObject
+            //Debug.Log(tileComponents.Length); // get # of components in GameObject
             /*foreach (Component component in tileComponents) {
                 Debug.Log(component.ToString());
             }*/
  
             tempNum = 0;
-            Debug.Log(FindObjectOfType<P0>().getCurrTile());
+            //Debug.Log(FindObjectOfType<P0>().getCurrTile());
             var players = FindObjectsOfType<Players>();
             foreach (var player in players) { // make array of the players
                 //Debug.Log(">> "+player);
@@ -42,17 +48,15 @@ namespace MookCode.GlobalData
             }
 
             //players[0].getCurrCoins();
-            players[0].Move();
+            //players[0].Move();
             //players[0].
             // Poffset in data
 
-            //playersList[0] = P0;
 
             pOffsetArr[0] = new Vector2(-0.205f, 0.206f);
             pOffsetArr[1] = new Vector2(0.195f, 0.206f);
-            // need to update pOffset for p2 and p3
-            //pOffsetArr[2] = new Vector2(0.195f, 0.206f);
-            //pOffsetArr[3] = new Vector2(0.195f, 0.206f);
+            pOffsetArr[2] = new Vector2(-0.205f, -0.09f);
+            pOffsetArr[3] = new Vector2(0.195f, 0.09f);
 
             
 

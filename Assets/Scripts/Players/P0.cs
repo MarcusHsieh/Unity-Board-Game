@@ -16,7 +16,8 @@ namespace MookCode.NPlayers
             Debug.Log(gameObject.name + " moving");
 
             // Get next tile pos
-            //nextTile = TileInfo.tileArr[(getCurrTile() + 1) % 27].getPos();
+            nextTile = Data.tileArr[(getCurrTile() + 1) % 27].transform.position;
+            Debug.Log("Tile "+nextTile);
             
             // Move one tile forward
             // Vector2.SmoothDamp (?)
@@ -24,7 +25,9 @@ namespace MookCode.NPlayers
 
             // Update currTile
             incCurrTile();
-
+            if (getEndTile() == getCurrTile()) {
+                setOnEndTile(true);
+            }
             // Check if onEndTile, if yes then onEndTile = true
             //setEndTile(getDiceRoll(), getCurrTile());
         }
@@ -39,7 +42,7 @@ namespace MookCode.NPlayers
 
         private void Awake() {
             setCurrCoins(100);
-            Debug.Log(gameObject.transform.position);
+            Debug.Log("Set coins to 100");
         }
     }
 }

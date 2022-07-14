@@ -7,9 +7,8 @@ using MookCode.Gameboard.Tiles;
 using MookCode.GlobalData;
 
 
-namespace MookCode.NPlayers
-{
-    public class P1 : Players {
+namespace MookCode.NPlayers {
+    public class P3 : Players {
         private Vector2 nextTile;
 
         public override void Move() {

@@ -22,7 +22,7 @@ namespace MookCode.NPlayers
         private void Awake() {
             currCoins = 10;
             currTile = 0;
-            onEndTile = true;
+            onEndTile = false;
             endTile = 0;
 
         }
@@ -37,17 +37,28 @@ namespace MookCode.NPlayers
         public bool getOnEndTile() {
             return onEndTile;
         }
+        public int getEndTile() {
+            return endTile;
+        }
 
         public void setCurrCoins(int n) { // for testing
             currCoins = n;
         }
 
-        public void setEndTile(/*int diceRoll, */int currTile) {
-            endTile = (/*DiceRollFunc + */currTile) % 27;
+        public void setEndTile(int diceRoll, int currTile) {
+            endTile = (diceRoll + currTile) % 27;
+        }
+        public void setOnEndTile(bool b) {
+            onEndTile = b;
         }
 
         public void incCurrTile() {
             currTile++;
+        }
+        public void incCurrCoins(int n) {
+            for (int i = 0; i < n; i++) {
+                currCoins++;
+            }
         }
 
 
