@@ -10,7 +10,7 @@ using MookCode.GlobalData;
 namespace MookCode.NPlayers
 {
     public class P0 : Players {
-        private Vector2 nextTile;
+        private Vector2 nextTile; // currently (0,0)
 
         public override void Move() {
             Debug.Log(gameObject.name + " moving");

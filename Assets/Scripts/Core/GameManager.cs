@@ -27,6 +27,7 @@ namespace MookCode.Core
 
 
         void Start() {
+
             inGame();
             /*
             FindObjectOfType<P0>().Move();
@@ -47,23 +48,15 @@ namespace MookCode.Core
             // 2. For loop for x times
             //     Move();
             //     runTileEvent();
-
             // change for loop to the dice roll later
             for (int i = 0; i < 5; i++) {
-                Data.playersArr[Data.currPlayer].Move(); // Move current player
-
-                Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
-                    .GetComponents(typeof(Component)); // grab components in current tile
-                if (Data.tileComponents.Length > 1) { // if component list has more than just transform
-                    var tileRunner = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
-                        .GetComponents(typeof(Component))[1] as TileEvents; 
-                        // can change [1] to [Data.tileComponents.Length-1] if trying to add more components later
-                    tileRunner.RunTileEvent(); // runs whatever event the tile has
-                }
+                Data.playersArr[Data.currPlayer].Move(); // Move current 
                 
-            }
+                runTileEvent();
+                
 
-            Data.currPlayer++;
+            }
+                Data.currPlayer++;
 
         }
 
@@ -81,12 +74,21 @@ namespace MookCode.Core
         }
 
         public void runTileEvent() {
-            // if passing trophy or start tile OR on end tile run the event
-            /*if (FindObjectOfType<TileInfo>().getEventName().Equals("TROPHY") || FindObjectOfType<TileInfo>().getEventName().Equals("START") || onEndTile == true) {
-                // check after every move()                     
-                //FindObjectOfType<TileEvents>().RunTileEvent( Data.tileArr[ currTile ].getEventName() ); 
-            }*/
+            // **not sure it this will pause everything until it finishes, then continue running code
             
+            Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
+                .GetComponents(typeof(Component)); // grab components in current tile
+            if (Data.tileComponents.Length > 1) { // if component list has more than just transform
+                var tileRunner = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
+                    .GetComponents(typeof(Component))[1] as TileEvents;
+                if (tileRunner.GetName().Equals("START") || tileRunner.GetName().Equals("TROPHY")
+                    || Data.playersArr[Data.currPlayer].getOnEndTile() == true) { // if start, trophy, or end tile
+                    // can change [1] to [Data.tileComponents.Length-1] if trying to add more components later
+                    tileRunner.RunTileEvent(); // runs whatever event the tile has
+                }
+            }
+
+
         }
     }
 }

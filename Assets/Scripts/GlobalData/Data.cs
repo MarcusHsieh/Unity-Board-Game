@@ -21,8 +21,9 @@ namespace MookCode.GlobalData
 
         public static GameObject[] tileArr = new GameObject[28];
         public static Component[] tileComponents = new Component[3];
-        
-        private void Start() {
+
+
+        private void Awake() {
             setTileArr();
             //tileArr[0].GetComponent<ADDCOINS>().RunTileEvent();
             
@@ -57,10 +58,22 @@ namespace MookCode.GlobalData
 
         }
         // check for # of components
+        // Destroy component when need to change tile 
+        // Also later need to add a sprite or some indicator for each tile type (Visually)
         private void setTileArr() {
-            
+            string temp = "";
             tileArr[0] = GameObject.Find("00");
-            tileArr[0].AddComponent<ADDCOINS>();
+            tileArr[0].AddComponent<START>();
+            for (int i = 2; i < 27; i += 2) {
+                temp = i.ToString().PadLeft(2, '0');
+                tileArr[i] = GameObject.Find(temp);
+                tileArr[i].AddComponent<ADDCOINS>();
+            }
+            for (int i = 1; i < 27; i += 2) {
+                temp = i.ToString().PadLeft(2, '0');
+                tileArr[i] = GameObject.Find(temp);
+                tileArr[i].AddComponent<MINCOINS>();
+            }
             
         }
 

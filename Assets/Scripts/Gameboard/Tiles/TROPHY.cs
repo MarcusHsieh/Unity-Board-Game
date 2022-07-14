@@ -11,6 +11,9 @@ namespace MookCode.Gameboard.Tiles {
             Debug.Log("> TROPHY");
             // Trophy prompt
         }
+        public override string GetName() {
+            return "TROPHY";
+        }
         // smth for if pOnTile>1, offset ppl on the tile
     }
 }

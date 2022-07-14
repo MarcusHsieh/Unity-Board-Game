@@ -12,6 +12,9 @@ namespace MookCode.Gameboard.Tiles {
             // +8 coins WHEN PASS, don't need to land
             // needs to be generic for Data.currPlayer
         }
+        public override string GetName() {
+            return "START";
+        }
         // smth for if pOnTile>1, offset ppl on the tile
     }
 }

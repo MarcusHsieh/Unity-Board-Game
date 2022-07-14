@@ -11,6 +11,9 @@ namespace MookCode.Gameboard.Tiles {
             Debug.Log("> MINCOINS");
             // -3 coins
         }
+        public override string GetName() {
+            return "MINCOINS";
+        }
         // smth for if pOnTile>1, offset ppl on the tile
     }
 }

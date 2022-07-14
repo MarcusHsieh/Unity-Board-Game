@@ -11,6 +11,7 @@ namespace MookCode.Gameboard.Tiles
 
         public int pOnTile = 0;
         public abstract void RunTileEvent();
+        public abstract string GetName();
 
         /*public void RunTileEvent(string eventName) {
             if (eventName.Equals("START")) {
