@@ -15,7 +15,9 @@ namespace MookCode.UI
         public void openTrophyPrompt() {
             Debug.Log("OpeningTrophyPrompt");
             GetComponent<CanvasGroup>().alpha = 1;
-            GameObject.Find("BuyTrophy").GetComponent<Button>().interactable = true;
+            if (Data.playersArr[Data.currPlayer].getCurrCoins() > 10) {
+                GameObject.Find("BuyTrophy").GetComponent<Button>().interactable = true;
+            }
             GameObject.Find("PassTrophy").GetComponent<Button>().interactable = true;
         }
         public void closeTrophyPrompt() {
