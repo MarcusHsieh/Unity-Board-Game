@@ -93,8 +93,9 @@ namespace MookCode.Core
                     //yield return null;
                 }
                 */
+                Debug.Log("TrophyInput?" + Data.hasTrophyInput);
                 yield return StartCoroutine(RunMoveSeq());
-                Debug.Log("Past RunMoveSeq()");
+                //Debug.Log("Past RunMoveSeq()");
                 Data.currPlayer++;
                 GameObject.Find("Dice").GetComponent<DiceScript>().deactivateDice();
                 yield return new WaitForSeconds(1);
@@ -128,6 +129,7 @@ namespace MookCode.Core
                 if (tileRunner.GetName().Equals("START") || tileRunner.GetName().Equals("TROPHY")
                     || Data.playersArr[Data.currPlayer].getOnEndTile() == true) { // if start, trophy, or end tile
                     // can change [1] to [Data.tileComponents.Length-1] if trying to add more components later
+                    Debug.Log(tileRunner.GetName() + " should be running now");
                     yield return StartCoroutine(tileRunner.RunTileEvent()); // runs whatever event the tile has
                 }
             }

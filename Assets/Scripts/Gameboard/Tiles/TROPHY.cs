@@ -16,31 +16,19 @@ namespace MookCode.Gameboard.Tiles {
         public override IEnumerator RunTileEvent() {
             Debug.Log("> TROPHY");
             // Trophy prompt
-            //yield return StartCoroutine(TrophyEvent());
+            Data.hasTrophyInput = false; // <-- Had to force it
             GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().openTrophyPrompt();
-            //ield return new WaitUntil(() => Data.hasTrophyInput);
+            // make sure to reset this
             while (!Data.hasTrophyInput) {
-                Debug.Log("Waiting...");
+                //Debug.Log("Waiting...");
                 yield return null;
             }
-            GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
+            //GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
             Debug.Log("Here somehow?");
             Data.hasTrophyInput = false;
         }
         public override string GetName() {
             return "TROPHY";
-        }
-        public IEnumerator TrophyEvent() {
-            GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().openTrophyPrompt();
-            //ield return new WaitUntil(() => Data.hasTrophyInput);
-            while (!Data.hasTrophyInput) {
-                Debug.Log("Waiting...");
-                yield return null;
-            }
-            GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
-            Debug.Log("Here somehow?");
-            Data.hasTrophyInput = false;
-            // move trophy tile
         }
         
 
