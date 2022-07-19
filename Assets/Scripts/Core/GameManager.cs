@@ -30,9 +30,16 @@ namespace MookCode.Core
          [SerializeField]
         private bool onEndTile; // for GM locally
 
-
+        private void Awake() {
+            
+        }
         void Start() {
+            setTileArr();
+            setPlayersArr();
+            sortPlayersArr();
+            setpOffsetArr();
 
+            setTrophyTile(3);
             // need to add smth for game as a whole and main menu?
             StartCoroutine(inRound());
 
@@ -49,6 +56,17 @@ namespace MookCode.Core
 
          IEnumerator inRound() {
             Debug.Log("In round...");
+            Debug.Log(Data.currPlayer + "'s turn");
+
+            Debug.Log(Data.playersArr[0]);
+            Debug.Log(Data.playersArr[0].getPlayerNum());
+            Debug.Log(Data.playersArr[1]);
+            Debug.Log(Data.playersArr[1].getPlayerNum());
+            Debug.Log(Data.playersArr[2]);
+            Debug.Log(Data.playersArr[2].getPlayerNum());
+            Debug.Log(Data.playersArr[3]);
+            Debug.Log(Data.playersArr[3].getPlayerNum());
+
             while (Data.isEndRound == false) {
                 // I think I need to use coroutines here after moving in case of a tile event
                 // maybe put in each tile event
@@ -65,9 +83,14 @@ namespace MookCode.Core
                 Data.playersArr[Data.currPlayer].setEndTile(Data.diceRoll,Data.playersArr[Data.currPlayer].getCurrTile());
                 for (int i = 0; i < Data.diceRoll; i++) {
                     Data.playersArr[Data.currPlayer].Move(); // Move current 
-                    runTileEvent();
-                    yield return null;
+                    while (Data.hasRunEvent == false) {
+                        runTileEvent();
+                        yield return null;
+                    }
+                    Data.hasRunEvent = false;
+                    //yield return null;
                 }
+                
                 Data.currPlayer++;
                 yield return new WaitForSeconds(2);
                 GameObject.Find("Dice").GetComponent<DiceScript>().deactivateDice();
@@ -76,7 +99,7 @@ namespace MookCode.Core
                 // run minigame sequence
                 if (Data.currPlayer == 4) {
                     Debug.Log("Running minigame");
-                    //yield return StartCoroutine( minigame coroutine );
+                    //yield return StartCoroutine( minigame coroutine ); or change scene
                     Data.isEndRound = true;
                 }
                 yield return null;
@@ -84,7 +107,7 @@ namespace MookCode.Core
             
         }
 
-        public void runTileEvent() {
+        private void runTileEvent() {
             // **not sure it this will pause everything until it finishes, then continue running code
             
             Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
@@ -98,8 +121,68 @@ namespace MookCode.Core
                     tileRunner.RunTileEvent(); // runs whatever event the tile has
                 }
             }
+            Data.hasRunEvent = true;
+            
+        }
+        public void setTrophyTile(int n) {
+            Data.tileComponents = Data.tileArr[n].GetComponents(typeof(Component));
+            var someTile = Data.tileArr[n].GetComponents(typeof(Component))[1] as TileEvents;
+            Destroy(someTile);
+            Data.tileArr[n].AddComponent<TROPHY>();
+        }
+        private void setPlayersArr() {
+            // NOT IN RIGHT ORDER
+            Data.tempNum = 0;
+            var players = FindObjectsOfType<Players>();
+            foreach (var player in players) { // make array of the players
+                //Debug.Log(">> "+player);
+                Data.playersArr[Data.tempNum] = player;
+                Data.tempNum++;
+            }
+        }
+        private void sortPlayersArr() {
+            Data.tempInde = 0;
+            for (int i = 0; i < Data.playersArr.Length - 1; i++) {
+                Debug.Log("aaa");
+                Data.tempInde = i;
+                for (int j = i + 1; j < Data.playersArr.Length; j++) {
+                    Debug.Log(Data.playersArr[j].getPlayerNum() + "<" + Data.playersArr[Data.tempInde].getPlayerNum());
+                    if (Data.playersArr[j].getPlayerNum() < Data.playersArr[Data.tempInde].getPlayerNum()) {
+                        Data.tempInde = j;
+                        Debug.Log(" > " + Data.playersArr[j].getPlayerNum());
+                    }
+                }
+                Debug.Log(Data.playersArr[i].getPlayerNum());
+                Data.tempP = Data.playersArr[i];
+                Data.playersArr[i] = Data.playersArr[Data.tempInde];
+                Data.playersArr[Data.tempInde] = Data.tempP;
+            }
+            Debug.Log("Sorted pA!");
+        }
 
-
+        // check for # of components
+        // Destroy component when need to change tile 
+        // Also later need to add a sprite or some indicator for each tile type (Visually)
+        private void setTileArr() {
+            string temp = "";
+            Data.tileArr[0] = GameObject.Find("00");
+            Data.tileArr[0].AddComponent<START>();
+            for (int i = 2; i < 27; i += 2) {
+                temp = i.ToString().PadLeft(2, '0');
+                Data.tileArr[i] = GameObject.Find(temp);
+                Data.tileArr[i].AddComponent<ADDCOINS>();
+            }
+            for (int i = 1; i < 27; i += 2) {
+                temp = i.ToString().PadLeft(2, '0');
+                Data.tileArr[i] = GameObject.Find(temp);
+                Data.tileArr[i].AddComponent<MINCOINS>();
+            }
+        }
+        private void setpOffsetArr() {
+            Data.pOffsetArr[0] = new Vector2(-0.205f, 0.206f);
+            Data.pOffsetArr[1] = new Vector2(0.195f, 0.206f);
+            Data.pOffsetArr[2] = new Vector2(-0.205f, -0.09f);
+            Data.pOffsetArr[3] = new Vector2(0.195f, 0.09f);
         }
     }
 }

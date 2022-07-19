@@ -7,8 +7,7 @@ using MookCode.Gameboard.Tiles;
 using MookCode.GlobalData;
 
 
-namespace MookCode.NPlayers
-{
+namespace MookCode.NPlayers{
     public class P1 : Players {
         private Vector2 nextTile;
 
@@ -24,7 +23,9 @@ namespace MookCode.NPlayers
 
             // Update currTile
             incCurrTile();
-
+            if (getEndTile() == getCurrTile()) {
+                setOnEndTile(true);
+            }
             // Check if onEndTile, if yes then onEndTile = true
             //setEndTile(getDiceRoll(), getCurrTile());
         }
@@ -34,6 +35,9 @@ namespace MookCode.NPlayers
         }
         public override void MoveOffset() {
             throw new System.NotImplementedException();
+        }
+        private void Awake() {
+            setPlayerNum(1);
         }
     }
 }

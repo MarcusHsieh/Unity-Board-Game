@@ -6,9 +6,8 @@ using UnityEngine;
 using MookCode.Gameboard.Tiles;
 using MookCode.GlobalData;
 
-
-namespace MookCode.NPlayers
-{
+// make sure to update this into other P# classes!
+namespace MookCode.NPlayers{
     public class P0 : Players {
         private Vector2 nextTile; // currently (0,0)
 
@@ -17,7 +16,7 @@ namespace MookCode.NPlayers
 
             // Get next tile pos
             nextTile = Data.tileArr[(getCurrTile() + 1) % 27].transform.position;
-            Debug.Log("Tile "+nextTile);
+            //Debug.Log("Tile "+nextTile);
             
             // Move one tile forward
             // Vector2.SmoothDamp (?)
@@ -41,6 +40,7 @@ namespace MookCode.NPlayers
         }
 
         private void Awake() {
+            setPlayerNum(0);
             setCurrCoins(100);
             Debug.Log("Set coins to 100");
         }

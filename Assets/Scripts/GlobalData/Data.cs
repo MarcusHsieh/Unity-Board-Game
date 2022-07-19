@@ -17,7 +17,12 @@ namespace MookCode.GlobalData
         public static int speed = 500; 
         public static float smoothTime = 0.5f;
         public static float maxSpeed = Mathf.Infinity;
-        private int tempNum = 0;
+
+        // reset these to wtv you want at beginning of func
+        public static int tempNum = 0;
+        public static int tempInde = 0;
+        public static Players tempP;
+
 
         public static Players[] playersArr = new Players[4];
         // may have playerList in other scripts, need to change to playerArr
@@ -27,10 +32,15 @@ namespace MookCode.GlobalData
         public static GameObject[] tileArr = new GameObject[28];
         public static Component[] tileComponents = new Component[3];
 
+        // Dice
         public static int diceRoll = 0;
+        public static bool hasRunEvent = false;
+
+        // UI
+        public static bool hasTrophyInput = false;
 
         private void Awake() {
-            setTileArr();
+            //setTileArr();
             //tileArr[0].GetComponent<ADDCOINS>().RunTileEvent();
             
             //Debug.Log(tileComponents.Length); // get # of components in GameObject
@@ -38,49 +48,22 @@ namespace MookCode.GlobalData
                 Debug.Log(component.ToString());
             }*/
  
-            tempNum = 0;
+            
             //Debug.Log(FindObjectOfType<P0>().getCurrTile());
-            var players = FindObjectsOfType<Players>();
-            foreach (var player in players) { // make array of the players
-                //Debug.Log(">> "+player);
-                playersArr[tempNum] = player;
-                tempNum++;
-            }
-
+            //setPlayersArr();
+            //2031
+            //sortPlayersArr();
             //players[0].getCurrCoins();
             //players[0].Move();
             //players[0].
             // Poffset in data
 
 
-            pOffsetArr[0] = new Vector2(-0.205f, 0.206f);
-            pOffsetArr[1] = new Vector2(0.195f, 0.206f);
-            pOffsetArr[2] = new Vector2(-0.205f, -0.09f);
-            pOffsetArr[3] = new Vector2(0.195f, 0.09f);
+            
 
             
 
         }
-        // check for # of components
-        // Destroy component when need to change tile 
-        // Also later need to add a sprite or some indicator for each tile type (Visually)
-        private void setTileArr() {
-            string temp = "";
-            tileArr[0] = GameObject.Find("00");
-            tileArr[0].AddComponent<START>();
-            for (int i = 2; i < 27; i += 2) {
-                temp = i.ToString().PadLeft(2, '0');
-                tileArr[i] = GameObject.Find(temp);
-                tileArr[i].AddComponent<ADDCOINS>();
-            }
-            for (int i = 1; i < 27; i += 2) {
-                temp = i.ToString().PadLeft(2, '0');
-                tileArr[i] = GameObject.Find(temp);
-                tileArr[i].AddComponent<MINCOINS>();
-            }
-            
-        }
 
-        //Players[] playerList = Players[0, 1, 2, 3];
     }
 }

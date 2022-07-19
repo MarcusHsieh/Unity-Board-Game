@@ -13,11 +13,15 @@ namespace MookCode.NPlayers
          [SerializeField]
         private int currCoins;
          [SerializeField]
+        private int currTrophies;
+         [SerializeField]
         private int currTile;
          [SerializeField]
         private bool onEndTile;
          [SerializeField]
         private int endTile;
+         [SerializeField]
+        private int playerNum;
 
         private void Awake() {
             currCoins = 10;
@@ -30,7 +34,9 @@ namespace MookCode.NPlayers
         public int getCurrCoins() {
             return currCoins;
         }
-
+        public int getCurrTrophies() {
+            return currTrophies;
+        }
         public int getCurrTile() {
             return currTile;
         }
@@ -59,6 +65,27 @@ namespace MookCode.NPlayers
             for (int i = 0; i < n; i++) {
                 currCoins++;
             }
+        }
+        public void decCurrCoins(int n) {
+            for (int i = 0; i < n; i++) {
+                currCoins--;
+            }
+        }
+        public void incCurrTrophies(int n) {
+            for (int i = 0; i < n; i++) {
+                currTrophies++;
+            }
+        }
+        public void decCurrTrophies(int n) {
+            for (int i = 0; i < n; i++) {
+                currTrophies--;
+            }
+        }
+        public int getPlayerNum() {
+            return playerNum;
+        }
+        public void setPlayerNum(int n) {
+            playerNum = n;
         }
 
 
