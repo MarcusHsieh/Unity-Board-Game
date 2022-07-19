@@ -7,6 +7,7 @@ using MookCode.GlobalData;
 using MookCode.Gameboard.Tiles;
 using MookCode.NPlayers;
 using MookCode.Dice;
+using MookCode.UI;
 
 
 namespace MookCode.Core
@@ -39,6 +40,7 @@ namespace MookCode.Core
             setPlayersArr();
             sortPlayersArr();
             setpOffsetArr();
+            
 
             setTrophyTile(3);
             // need to add smth for game as a whole and main menu?
@@ -59,16 +61,9 @@ namespace MookCode.Core
             Debug.Log("In round...");
             Debug.Log(Data.currPlayer + "'s turn");
 
-            Debug.Log(Data.playersArr[0]);
-            Debug.Log(Data.playersArr[0].getPlayerNum());
-            Debug.Log(Data.playersArr[1]);
-            Debug.Log(Data.playersArr[1].getPlayerNum());
-            Debug.Log(Data.playersArr[2]);
-            Debug.Log(Data.playersArr[2].getPlayerNum());
-            Debug.Log(Data.playersArr[3]);
-            Debug.Log(Data.playersArr[3].getPlayerNum());
-
             while (Data.isEndRound == false) {
+                FindObjectOfType<PStatWindow>().updateTurn();
+                FindObjectOfType<PStatWindow>().updateStats();
                 // I think I need to use coroutines here after moving in case of a tile event
                 // maybe put in each tile event
 
@@ -82,20 +77,10 @@ namespace MookCode.Core
                 //     Move();
                 //     runTileEvent();
                 Data.playersArr[Data.currPlayer].setEndTile(Data.diceRoll,Data.playersArr[Data.currPlayer].getCurrTile());
-                /*
-                for (int i = 0; i < Data.diceRoll; i++) {
-                    Data.playersArr[Data.currPlayer].Move(); // Move current 
-                    while (Data.hasRunEvent == false) {
-                        runTileEvent();
-                        yield return null;
-                    }
-                    Data.hasRunEvent = false;
-                    //yield return null;
-                }
-                */
-                Debug.Log("TrophyInput?" + Data.hasTrophyInput);
+
                 yield return StartCoroutine(RunMoveSeq());
                 //Debug.Log("Past RunMoveSeq()");
+
                 Data.currPlayer++;
                 GameObject.Find("Dice").GetComponent<DiceScript>().deactivateDice();
                 yield return new WaitForSeconds(1);
@@ -114,6 +99,7 @@ namespace MookCode.Core
             while (toDiceRoll < Data.diceRoll) {
                 Data.playersArr[Data.currPlayer].Move();
                 yield return StartCoroutine(runTileEvent());
+                FindObjectOfType<PStatWindow>().updateStats();
                 toDiceRoll++;
             }
             toDiceRoll = 0;

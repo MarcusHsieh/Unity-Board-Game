@@ -3,6 +3,7 @@
 using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
+using MookCode.GlobalData;
 
 
 namespace MookCode.Gameboard.Tiles {
@@ -10,6 +11,7 @@ namespace MookCode.Gameboard.Tiles {
         public override IEnumerator RunTileEvent() {
             Debug.Log("> MINCOINS");
             // -3 coins
+            Data.playersArr[Data.currPlayer].decCurrCoins(3);
             yield return new WaitForSeconds(1);
         }
         public override string GetName() {

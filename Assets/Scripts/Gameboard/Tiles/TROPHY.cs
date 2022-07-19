@@ -26,6 +26,7 @@ namespace MookCode.Gameboard.Tiles {
             //GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
             Debug.Log("Here somehow?");
             Data.hasTrophyInput = false;
+            yield break;
         }
         public override string GetName() {
             return "TROPHY";

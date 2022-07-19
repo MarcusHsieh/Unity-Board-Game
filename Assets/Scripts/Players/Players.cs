@@ -22,6 +22,8 @@ namespace MookCode.NPlayers
         private int endTile;
          [SerializeField]
         private int playerNum;
+         [SerializeField]
+        private int placementNum;
 
         private void Awake() {
             currCoins = 10;
@@ -46,7 +48,9 @@ namespace MookCode.NPlayers
         public int getEndTile() {
             return endTile;
         }
-
+        public int getPlacementNum() {
+            return placementNum;
+        }
         public void setCurrCoins(int n) { // for testing
             currCoins = n;
         }
@@ -56,6 +60,9 @@ namespace MookCode.NPlayers
         }
         public void setOnEndTile(bool b) {
             onEndTile = b;
+        }
+        public void setPlacementNum(int n) {
+            placementNum = n;
         }
 
         public void incCurrTile() {
