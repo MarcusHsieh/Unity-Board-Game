@@ -13,22 +13,33 @@ namespace MookCode.Gameboard.Tiles {
         
         // replace sprite?
 
-        public override void RunTileEvent() {
+        public override IEnumerator RunTileEvent() {
             Debug.Log("> TROPHY");
             // Trophy prompt
-            StartCoroutine("TrophyEvent");
+            //yield return StartCoroutine(TrophyEvent());
+            GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().openTrophyPrompt();
+            //ield return new WaitUntil(() => Data.hasTrophyInput);
+            while (!Data.hasTrophyInput) {
+                Debug.Log("Waiting...");
+                yield return null;
+            }
+            GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
+            Debug.Log("Here somehow?");
+            Data.hasTrophyInput = false;
         }
         public override string GetName() {
             return "TROPHY";
         }
         public IEnumerator TrophyEvent() {
             GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().openTrophyPrompt();
-            while (Data.hasTrophyInput == false) {
-                
-                yield return null; 
+            //ield return new WaitUntil(() => Data.hasTrophyInput);
+            while (!Data.hasTrophyInput) {
+                Debug.Log("Waiting...");
+                yield return null;
             }
             GameObject.Find("Trophy Canvas").GetComponent<TrophyPrompt>().closeTrophyPrompt();
-            Data.hasTrophyInput = true;
+            Debug.Log("Here somehow?");
+            Data.hasTrophyInput = false;
             // move trophy tile
         }
         

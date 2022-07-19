@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace MookCode.Gameboard.Tiles {
     public class START : TileEvents {
-        public override void RunTileEvent() {
+        public override IEnumerator RunTileEvent() {
             Debug.Log("> START");
             // +8 coins WHEN PASS, don't need to land
             // needs to be generic for Data.currPlayer
+            yield return new WaitForSeconds(1);
         }
         public override string GetName() {
             return "START";

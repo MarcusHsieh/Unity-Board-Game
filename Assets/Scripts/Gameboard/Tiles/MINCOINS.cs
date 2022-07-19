@@ -7,9 +7,10 @@ using UnityEngine;
 
 namespace MookCode.Gameboard.Tiles {
     public class MINCOINS : TileEvents {
-        public override void RunTileEvent() {
+        public override IEnumerator RunTileEvent() {
             Debug.Log("> MINCOINS");
             // -3 coins
+            yield return new WaitForSeconds(1);
         }
         public override string GetName() {
             return "MINCOINS";

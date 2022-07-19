@@ -585,9 +585,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currCoins: 0
+  currTrophies: 0
   currTile: 0
   onEndTile: 0
   endTile: 0
+  playerNum: 0
 --- !u!1 &534721829
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,9 +940,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currCoins: 0
+  currTrophies: 0
   currTile: 0
   onEndTile: 0
   endTile: 0
+  playerNum: 0
 --- !u!1 &978162248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1200,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1016108476}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070207805}
+        m_TargetAssemblyTypeName: MookCode.UI.TrophyPrompt, Assembly-CSharp
+        m_MethodName: buyTrophy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1016108476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11853,7 +11869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -19, y: -2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640700734
@@ -11876,7 +11892,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Buy a trophy for 10 coins?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11885,8 +11901,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281545523
+  m_fontColor: {r: 0.20000002, g: 0.20000002, b: 0.20000002, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11910,8 +11926,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11939,7 +11955,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -19.122375, y: -30.582314, z: -61.194427, w: -19.1188}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12080,9 +12096,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currCoins: 0
+  currTrophies: 0
   currTile: 0
   onEndTile: 0
   endTile: 0
+  playerNum: 0
 --- !u!1 &1682621413
 GameObject:
   m_ObjectHideFlags: 0
@@ -12165,7 +12183,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1682621416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070207805}
+        m_TargetAssemblyTypeName: MookCode.UI.TrophyPrompt, Assembly-CSharp
+        m_MethodName: passTrophy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1682621416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12753,9 +12783,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currCoins: 0
+  currTrophies: 0
   currTile: 0
   onEndTile: 0
   endTile: 0
+  playerNum: 0
 --- !u!1 &2034807375
 GameObject:
   m_ObjectHideFlags: 0
@@ -12834,8 +12866,10 @@ GameObject:
   - component: {fileID: 2070207803}
   - component: {fileID: 2070207802}
   - component: {fileID: 2070207801}
+  - component: {fileID: 2070207806}
+  - component: {fileID: 2070207805}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Trophy Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12922,6 +12956,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2070207805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070207800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6d6f01c4ebc944f852819680bec58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &2070207806
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070207800}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2124305136
 GameObject:
   m_ObjectHideFlags: 0

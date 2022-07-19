@@ -30,6 +30,7 @@ namespace MookCode.Core
          [SerializeField]
         private bool onEndTile; // for GM locally
 
+        private int toDiceRoll = 0;
         private void Awake() {
             
         }
@@ -81,6 +82,7 @@ namespace MookCode.Core
                 //     Move();
                 //     runTileEvent();
                 Data.playersArr[Data.currPlayer].setEndTile(Data.diceRoll,Data.playersArr[Data.currPlayer].getCurrTile());
+                /*
                 for (int i = 0; i < Data.diceRoll; i++) {
                     Data.playersArr[Data.currPlayer].Move(); // Move current 
                     while (Data.hasRunEvent == false) {
@@ -90,9 +92,10 @@ namespace MookCode.Core
                     Data.hasRunEvent = false;
                     //yield return null;
                 }
-                
+                */
+                yield return StartCoroutine(RunMoveSeq());
+                Debug.Log("Past RunMoveSeq()");
                 Data.currPlayer++;
-                yield return new WaitForSeconds(2);
                 GameObject.Find("Dice").GetComponent<DiceScript>().deactivateDice();
                 yield return new WaitForSeconds(1);
 
@@ -106,8 +109,15 @@ namespace MookCode.Core
             }
             
         }
-
-        private void runTileEvent() {
+        IEnumerator RunMoveSeq() {
+            while (toDiceRoll < Data.diceRoll) {
+                Data.playersArr[Data.currPlayer].Move();
+                yield return StartCoroutine(runTileEvent());
+                toDiceRoll++;
+            }
+            toDiceRoll = 0;
+        }
+        IEnumerator runTileEvent() {
             // **not sure it this will pause everything until it finishes, then continue running code
             
             Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
@@ -118,10 +128,10 @@ namespace MookCode.Core
                 if (tileRunner.GetName().Equals("START") || tileRunner.GetName().Equals("TROPHY")
                     || Data.playersArr[Data.currPlayer].getOnEndTile() == true) { // if start, trophy, or end tile
                     // can change [1] to [Data.tileComponents.Length-1] if trying to add more components later
-                    tileRunner.RunTileEvent(); // runs whatever event the tile has
+                    yield return StartCoroutine(tileRunner.RunTileEvent()); // runs whatever event the tile has
                 }
             }
-            Data.hasRunEvent = true;
+            //Data.hasRunEvent = true;
             
         }
         public void setTrophyTile(int n) {

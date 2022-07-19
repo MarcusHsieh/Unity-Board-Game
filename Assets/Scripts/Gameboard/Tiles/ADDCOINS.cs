@@ -8,15 +8,15 @@ using MookCode.GlobalData;
 
 namespace MookCode.Gameboard.Tiles {
     public class ADDCOINS : TileEvents {
-        public override void RunTileEvent() {
+        public override IEnumerator RunTileEvent() {
             Debug.Log("> ADDCOINS");
             // +3 coins
-            StartCoroutine(Event());
+            yield return StartCoroutine(AddCoinsEvent());
         }
         public override string GetName() {
             return "ADDCOINS";
         }
-        public IEnumerator Event() {
+        public IEnumerator AddCoinsEvent() {
             // can add a value in Data later if want to have multiplier
             Data.playersArr[Data.currPlayer].incCurrCoins(3);
             yield return new WaitForSeconds(2);
