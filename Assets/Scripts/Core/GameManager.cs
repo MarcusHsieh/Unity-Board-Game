@@ -14,24 +14,9 @@ namespace MookCode.Core
 {
     public class GameManager : MonoBehaviour {
 
-         [SerializeField]
-        private P0 pZero;
-         [SerializeField]
-        private P1 pOne;
-         [SerializeField]
-        private P2 pTwo;
-         [SerializeField]
-        private P3 pThree;
-
-
-        [SerializeField]
-        private int currCoins;
-         [SerializeField]
-        private int currTile;
-         [SerializeField]
-        private bool onEndTile; // for GM locally
-
         private int toDiceRoll = 0;
+
+        
         private void Awake() {
             
         }
@@ -53,9 +38,6 @@ namespace MookCode.Core
             Debug.Log(GameObject.Find("0").transform.position);*/
         }
 
-        private void Update() {
-
-        }
 
          IEnumerator inRound() {
             Debug.Log("In round...");
@@ -123,10 +105,30 @@ namespace MookCode.Core
             
         }
         public void setTrophyTile(int n) {
+            int someTileInd = -1;
+            for (int i = 0; i < Data.tileArr.Length; i++) {
+                if (Data.tileArr[i].GetComponent<TROPHY>() != null) {
+                    Debug.Log(i + " works!");
+                    someTileInd = i;
+                }
+            }
             Data.tileComponents = Data.tileArr[n].GetComponents(typeof(Component));
             var someTile = Data.tileArr[n].GetComponents(typeof(Component))[1] as TileEvents;
             Destroy(someTile);
+            // replace old tile if exists
+            if (someTileInd != -1) {
+                Destroy(Data.tileArr[someTileInd].GetComponent<TROPHY>());
+                if (someTileInd % 2 == 0) {
+                    Data.tileArr[someTileInd].AddComponent<ADDCOINS>();
+                    Data.tileArr[someTileInd].GetComponent<ADDCOINS>().ChangeSprite();
+                }
+                else if (someTileInd % 2 == 1) {
+                    Data.tileArr[someTileInd].AddComponent<MINCOINS>();
+                    Data.tileArr[someTileInd].GetComponent<MINCOINS>().ChangeSprite();
+                }
+            }
             Data.tileArr[n].AddComponent<TROPHY>();
+            Data.tileArr[n].GetComponent<TROPHY>().ChangeSprite();
         }
         private void setPlayersArr() {
             // NOT IN RIGHT ORDER
@@ -165,15 +167,18 @@ namespace MookCode.Core
             string temp = "";
             Data.tileArr[0] = GameObject.Find("00");
             Data.tileArr[0].AddComponent<START>();
-            for (int i = 2; i < 27; i += 2) {
+            Data.tileArr[0].GetComponent<START>().ChangeSprite();
+            for (int i = 2; i < 28; i += 2) {
                 temp = i.ToString().PadLeft(2, '0');
                 Data.tileArr[i] = GameObject.Find(temp);
                 Data.tileArr[i].AddComponent<ADDCOINS>();
+                Data.tileArr[i].GetComponent<ADDCOINS>().ChangeSprite();
             }
-            for (int i = 1; i < 27; i += 2) {
+            for (int i = 1; i < 28; i += 2) {
                 temp = i.ToString().PadLeft(2, '0');
                 Data.tileArr[i] = GameObject.Find(temp);
                 Data.tileArr[i].AddComponent<MINCOINS>();
+                Data.tileArr[i].GetComponent<MINCOINS>().ChangeSprite();
             }
         }
         private void setpOffsetArr() {

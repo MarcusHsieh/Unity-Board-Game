@@ -34,6 +34,11 @@ namespace MookCode.UI
             Debug.Log("+1 Trophy \\ -10 coins");
             Data.hasTrophyInput = true;
             closeTrophyPrompt();
+            int randNum = Random.Range(1, 27);
+            while (randNum == Data.playersArr[Data.currPlayer].getCurrTile()) {
+                randNum = Random.Range(1, 27);
+            }
+            FindObjectOfType<GameManager>().setTrophyTile(randNum);
         }
         public void passTrophy() {
             Debug.Log("Pass trophy");

@@ -10,6 +10,8 @@ namespace MookCode.GlobalData
 {
     public class Data : MonoBehaviour {
 
+        public Sprite[] tileSpiteArr = new Sprite[4];
+
         public static bool isEndGame = false;
         public static bool isEndRound = false;
 

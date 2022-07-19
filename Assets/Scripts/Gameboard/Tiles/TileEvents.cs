@@ -17,6 +17,8 @@ namespace MookCode.Gameboard.Tiles
         //public abstract void RunTileEvent();
         public abstract string GetName();
 
+        public abstract void ChangeSprite();
+
         public void pOnTileCheck() {
 
         }
