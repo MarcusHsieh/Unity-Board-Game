@@ -56,7 +56,7 @@ namespace MookCode.NPlayers
         }
 
         public void setEndTile(int diceRoll, int currTile) {
-            endTile = (diceRoll + currTile) % 27;
+            endTile = (diceRoll + currTile) % 28;
         }
         public void setOnEndTile(bool b) {
             onEndTile = b;
@@ -66,7 +66,7 @@ namespace MookCode.NPlayers
         }
 
         public void incCurrTile() {
-            currTile++;
+            currTile = (currTile +1) % 28;
         }
         public void incCurrCoins(int n) {
             for (int i = 0; i < n; i++) {

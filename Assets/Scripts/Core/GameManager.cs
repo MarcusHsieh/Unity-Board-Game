@@ -3,6 +3,7 @@
 using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MookCode.GlobalData;
 using MookCode.Gameboard.Tiles;
 using MookCode.NPlayers;
@@ -10,10 +11,11 @@ using MookCode.Dice;
 using MookCode.UI;
 
 
+
 namespace MookCode.Core
 {
     public class GameManager : MonoBehaviour {
-
+        private static bool gm_Initialized = false;
         private int toDiceRoll = 0;
 
         
@@ -21,26 +23,43 @@ namespace MookCode.Core
             
         }
         void Start() {
-            setTileArr();
-            setPlayersArr();
-            sortPlayersArr();
-            setpOffsetArr();
-            
+            if (!gm_Initialized) {
+                setTileArr();
+                setPlayersArr();
+                sortPlayersArr();
+                setpOffsetArr();
+                // set to rand later 
+                // check TrophyPrompt buyTrophy()
+                setTrophyTile(3);
+                gm_Initialized = true;
+            }
+            // in inGame(), just have inRound run once, so after scene change it'll run once
+            StartCoroutine(inGame());
 
-            setTrophyTile(3);
-            // need to add smth for game as a whole and main menu?
-            StartCoroutine(inRound());
-
-            /*
-            FindObjectOfType<P0>().Move();
-            Debug.Log(Data.tileArr[0].getEventName());
-            Debug.Log(Data.tileArr[1].getPos());
-            Debug.Log(GameObject.Find("0").transform.position);*/
         }
 
+        private void Update() {
+            //StartCoroutine(inGame());
+            
+        }
+        IEnumerator inGame() {
+            while (Data.isEndGame == false) {
+                yield return StartCoroutine(inRound());
+                Data.isEndRound = false;
+                for (int i = 0; i < Data.playersArr.Length; i++) {
+                    Data.playersArr[i].setOnEndTile(false);
+                }
+                Debug.Log("Next round...");
+                if (Data.roundNum == 10) {
+                    Debug.Log("end game...");
+                    Data.isEndGame = true;
+                }
+            }
+            // scene change to end screen?
+        }
 
-         IEnumerator inRound() {
-            Debug.Log("In round...");
+        IEnumerator inRound() {
+            Debug.Log("In round..."+Data.roundNum);
             Debug.Log(Data.currPlayer + "'s turn");
 
             while (Data.isEndRound == false) {
@@ -71,7 +90,10 @@ namespace MookCode.Core
                 if (Data.currPlayer == 4) {
                     Debug.Log("Running minigame");
                     //yield return StartCoroutine( minigame coroutine ); or change scene
+                    SceneManager.LoadScene(1);
+                    Data.currPlayer = 0;
                     Data.isEndRound = true;
+                    Data.roundNum++;
                 }
                 yield return null;
             }
@@ -143,7 +165,6 @@ namespace MookCode.Core
         private void sortPlayersArr() {
             Data.tempInde = 0;
             for (int i = 0; i < Data.playersArr.Length - 1; i++) {
-                Debug.Log("aaa");
                 Data.tempInde = i;
                 for (int j = i + 1; j < Data.playersArr.Length; j++) {
                     Debug.Log(Data.playersArr[j].getPlayerNum() + "<" + Data.playersArr[Data.tempInde].getPlayerNum());

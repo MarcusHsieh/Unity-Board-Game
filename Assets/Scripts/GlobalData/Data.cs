@@ -10,10 +10,13 @@ namespace MookCode.GlobalData
 {
     public class Data : MonoBehaviour {
 
+        // tile sprites
         public Sprite[] tileSpiteArr = new Sprite[4];
 
+        // round/game managers
         public static bool isEndGame = false;
         public static bool isEndRound = false;
+        public static int roundNum = 0;
 
         // inc speed seems to fix not moving enough
         public static int speed = 500; 
@@ -41,31 +44,7 @@ namespace MookCode.GlobalData
         // UI
         public static bool hasTrophyInput = false;
 
-        private void Awake() {
-            //setTileArr();
-            //tileArr[0].GetComponent<ADDCOINS>().RunTileEvent();
-            
-            //Debug.Log(tileComponents.Length); // get # of components in GameObject
-            /*foreach (Component component in tileComponents) {
-                Debug.Log(component.ToString());
-            }*/
- 
-            
-            //Debug.Log(FindObjectOfType<P0>().getCurrTile());
-            //setPlayersArr();
-            //2031
-            //sortPlayersArr();
-            //players[0].getCurrCoins();
-            //players[0].Move();
-            //players[0].
-            // Poffset in data
 
-
-            
-
-            
-
-        }
 
     }
 }

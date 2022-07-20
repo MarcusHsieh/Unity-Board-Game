@@ -15,7 +15,7 @@ namespace MookCode.NPlayers {
             Debug.Log(gameObject.name + " moving");
 
             // Get next tile pos
-            nextTile = Data.tileArr[(getCurrTile() + 1) % 27].transform.position;
+            nextTile = Data.tileArr[(getCurrTile() + 1) % 28].transform.position;
 
             // Move one tile forward
             // Vector2.SmoothDamp (?)
