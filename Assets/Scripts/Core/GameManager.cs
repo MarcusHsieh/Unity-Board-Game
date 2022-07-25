@@ -23,6 +23,14 @@ namespace MookCode.Core
             
         }
         void Start() {
+            if (gm_Initialized) {
+                // grab save data and set everything from that
+                loadTileArr();
+                setPlayersArr();
+                sortPlayersArr();
+                loadPlayerArr();
+                
+            }
             if (!gm_Initialized) {
                 setTileArr();
                 setPlayersArr();
@@ -85,7 +93,8 @@ namespace MookCode.Core
                 Data.currPlayer++;
                 GameObject.Find("Dice").GetComponent<DiceScript>().deactivateDice();
                 yield return new WaitForSeconds(1);
-
+                saveTileArr();
+                savePlayerArr();
                 // run minigame sequence
                 if (Data.currPlayer == 4) {
                     Debug.Log("Running minigame");
@@ -108,9 +117,7 @@ namespace MookCode.Core
             }
             toDiceRoll = 0;
         }
-        IEnumerator runTileEvent() {
-            // **not sure it this will pause everything until it finishes, then continue running code
-            
+        IEnumerator runTileEvent() {         
             Data.tileComponents = Data.tileArr[Data.playersArr[Data.currPlayer].getCurrTile()]
                 .GetComponents(typeof(Component)); // grab components in current tile
             if (Data.tileComponents.Length > 1) { // if component list has more than just transform
@@ -122,19 +129,20 @@ namespace MookCode.Core
                     Debug.Log(tileRunner.GetName() + " should be running now");
                     yield return StartCoroutine(tileRunner.RunTileEvent()); // runs whatever event the tile has
                 }
+                // add more later...
             }
             //Data.hasRunEvent = true;
-            
+
         }
         public void setTrophyTile(int n) {
             int someTileInd = -1;
             for (int i = 0; i < Data.tileArr.Length; i++) {
                 if (Data.tileArr[i].GetComponent<TROPHY>() != null) {
-                    Debug.Log(i + " works!");
+                    //Debug.Log(i + " has trophy!");
                     someTileInd = i;
                 }
             }
-            Data.tileComponents = Data.tileArr[n].GetComponents(typeof(Component));
+            //Data.tileComponents = Data.tileArr[n].GetComponents(typeof(Component));
             var someTile = Data.tileArr[n].GetComponents(typeof(Component))[1] as TileEvents;
             Destroy(someTile);
             // replace old tile if exists
@@ -148,10 +156,12 @@ namespace MookCode.Core
                     Data.tileArr[someTileInd].AddComponent<MINCOINS>();
                     Data.tileArr[someTileInd].GetComponent<MINCOINS>().ChangeSprite();
                 }
+                // add more later...
             }
             Data.tileArr[n].AddComponent<TROPHY>();
             Data.tileArr[n].GetComponent<TROPHY>().ChangeSprite();
         }
+        // 1
         private void setPlayersArr() {
             // NOT IN RIGHT ORDER
             Data.tempNum = 0;
@@ -160,6 +170,40 @@ namespace MookCode.Core
                 //Debug.Log(">> "+player);
                 Data.playersArr[Data.tempNum] = player;
                 Data.tempNum++;
+            }
+        }
+        // 2
+        private void savePlayerArr() {
+            Data.playersArrSave = "";
+            // split each player with |
+            // split each value with \
+            //  > coins\trophies\currTile
+            //   > Later add items LAST - so last few elements of array are always items 
+            foreach (Players p in Data.playersArr) {
+                Data.playersArrSave += p.getCurrCoins();
+                Data.playersArrSave += "\\";
+                Data.playersArrSave += p.getCurrTrophies();
+                Data.playersArrSave += "\\";
+                Data.playersArrSave += p.getCurrTile();
+                Data.playersArrSave += "\\";
+                Data.playersArrSave += "item0,item1,item2";
+                if (p.getPlayerNum() != 3) {
+                    Data.playersArrSave += "|";
+                }
+                // add more later...
+            }
+        }
+        // 3
+        private void loadPlayerArr() {
+            // MoveTowards curr tile
+            int n = 0;
+            string[] players = Data.playersArrSave.Split('|');
+            string[] tempPlayer;
+            foreach (Players p in Data.playersArr) {
+                tempPlayer = players[n].Split('\\');
+                p.playerLoader(int.Parse(tempPlayer[0]), int.Parse(tempPlayer[1]), int.Parse(tempPlayer[2]), tempPlayer[3]);
+                p.gameObject.transform.position = Data.tileArr[p.getCurrTile()].transform.position;
+                n++;
             }
         }
         private void sortPlayersArr() {
@@ -184,6 +228,8 @@ namespace MookCode.Core
         // check for # of components
         // Destroy component when need to change tile 
         // Also later need to add a sprite or some indicator for each tile type (Visually)
+        
+        // 1
         private void setTileArr() {
             string temp = "";
             Data.tileArr[0] = GameObject.Find("00");
@@ -201,12 +247,61 @@ namespace MookCode.Core
                 Data.tileArr[i].AddComponent<MINCOINS>();
                 Data.tileArr[i].GetComponent<MINCOINS>().ChangeSprite();
             }
+            // add more later...
         }
-        private void setpOffsetArr() {
+        // 2
+        private void saveTileArr() {
+            // save into a string
+
+            Data.tileArrSave = ""; 
+            // don't need one for Start since it'll always be at the beginning
+            foreach (GameObject tile in Data.tileArr) {
+                var someTile = tile.GetComponents(typeof(Component))[1] as TileEvents;
+                if (someTile.GetName().Equals("TROPHY")) {
+                    Data.tileArrSave += "T";
+                }
+                else if (someTile.GetName().Equals("ADDCOINS")) {
+                    Data.tileArrSave += "A";
+                }
+                else if (someTile.GetName().Equals("MINCOINS")) {
+                    Data.tileArrSave += "M";
+                }
+                // add more later...
+            }
+        }
+        // 3
+        private void loadTileArr() {
+            int n = 1; // start at 1 bc START autosets
+            string temp = "";
+            Data.tileArr[0] = GameObject.Find("00");
+            Data.tileArr[0].AddComponent<START>();
+            Data.tileArr[0].GetComponent<START>().ChangeSprite();
+            foreach (char c in Data.tileArrSave) {
+                temp = n.ToString().PadLeft(2, '0');
+                if (c.Equals('T')) {
+                    Data.tileArr[n] = GameObject.Find(temp);
+                    Data.tileArr[n].AddComponent<TROPHY>();
+                    Data.tileArr[n].GetComponent<TROPHY>().ChangeSprite();
+                }
+                else if (c.Equals('A')) {
+                    Data.tileArr[n] = GameObject.Find(temp);
+                    Data.tileArr[n].AddComponent<ADDCOINS>();
+                    Data.tileArr[n].GetComponent<ADDCOINS>().ChangeSprite();
+                }
+                else if (c.Equals('M')) {
+                    Data.tileArr[n] = GameObject.Find(temp);
+                    Data.tileArr[n].AddComponent<MINCOINS>();
+                    Data.tileArr[n].GetComponent<MINCOINS>().ChangeSprite();
+                }
+                // add more later...
+                n++;
+            }
+        }
+        private void setpOffsetArr() { 
             Data.pOffsetArr[0] = new Vector2(-0.205f, 0.206f);
             Data.pOffsetArr[1] = new Vector2(0.195f, 0.206f);
             Data.pOffsetArr[2] = new Vector2(-0.205f, -0.09f);
             Data.pOffsetArr[3] = new Vector2(0.195f, 0.09f);
-        }
+        } 
     }
 }

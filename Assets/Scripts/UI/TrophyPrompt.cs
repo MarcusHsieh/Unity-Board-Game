@@ -35,7 +35,12 @@ namespace MookCode.UI
             Data.hasTrophyInput = true;
             closeTrophyPrompt();
             int randNum = Random.Range(1, 27);
-            while (randNum == Data.playersArr[Data.currPlayer].getCurrTile()) {
+            while (randNum == Data.playersArr[Data.currPlayer].getCurrTile()
+                && randNum == Data.playersArr[0].getCurrTile()
+                && randNum == Data.playersArr[1].getCurrTile()
+                && randNum == Data.playersArr[2].getCurrTile()
+                && randNum == Data.playersArr[3].getCurrTile()
+                && randNum == 0) {
                 randNum = Random.Range(1, 27);
             }
             FindObjectOfType<GameManager>().setTrophyTile(randNum);

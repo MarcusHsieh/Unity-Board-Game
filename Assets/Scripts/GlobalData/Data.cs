@@ -3,12 +3,13 @@
 //using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
-using MookCode.Gameboard.Tiles;
 using MookCode.NPlayers;
 
 namespace MookCode.GlobalData
 {
     public class Data : MonoBehaviour {
+
+        private static Data dataInstance;
 
         // tile sprites
         public Sprite[] tileSpiteArr = new Sprite[4];
@@ -30,11 +31,14 @@ namespace MookCode.GlobalData
 
 
         public static Players[] playersArr = new Players[4];
+        public static string playersArrSave = "";
         // may have playerList in other scripts, need to change to playerArr
         public static Vector2[] pOffsetArr = new Vector2[4];
         public static int currPlayer = 0;
 
         public static GameObject[] tileArr = new GameObject[28];
+        public static string tileArrSave = "";
+        // tileComponents like temp
         public static Component[] tileComponents = new Component[3];
 
         // Dice
@@ -44,7 +48,14 @@ namespace MookCode.GlobalData
         // UI
         public static bool hasTrophyInput = false;
 
-
+        private void Awake() {
+            if (dataInstance == null) {
+                dataInstance = this;
+            }
+            else {
+                Destroy(gameObject);
+            }
+        }
 
     }
 }

@@ -51,10 +51,15 @@ namespace MookCode.NPlayers
         public int getPlacementNum() {
             return placementNum;
         }
-        public void setCurrCoins(int n) { // for testing
+        public void setCurrCoins(int n) {
             currCoins = n;
         }
-
+        public void setCurrTrophies(int n) {
+            currTrophies = n;
+        }
+        public void setCurrTile(int n) {
+            currTile = n;
+        }
         public void setEndTile(int diceRoll, int currTile) {
             endTile = (diceRoll + currTile) % 28;
         }
@@ -63,6 +68,12 @@ namespace MookCode.NPlayers
         }
         public void setPlacementNum(int n) {
             placementNum = n;
+        }
+        public void playerLoader(int c, int tr, int ti, string i) {
+            setCurrCoins(c);
+            setCurrTrophies(tr);
+            setCurrTile(ti);
+            //setItems(i)
         }
 
         public void incCurrTile() {
