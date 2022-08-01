@@ -11,6 +11,9 @@ namespace MookCode.GlobalData
 
         private static Data dataInstance;
 
+        // minigames
+        public static int[] coinWinnings = new int[4];
+
         // tile sprites
         public Sprite[] tileSpiteArr = new Sprite[4];
 
