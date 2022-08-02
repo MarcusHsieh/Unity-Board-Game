@@ -8,21 +8,27 @@ using UnityEngine;
 namespace MookCode._FallTile
 {
     public class FallTile_GM : MonoBehaviour {
-        float defaultTimeScale = Time.timeScale;
-        float defaultFixedDefaultTime = Time.fixedDeltaTime;
-        public float slowness = 10f;
+        private bool hasStartedGame = false;
+
+        private void Start() {
+            Time.timeScale = 0f; // instead of this enable/disable the spawner
+            Time.fixedDeltaTime = 0f;
+            FindObjectOfType<FallTile_UIM>().openStartCanvas();
+            while (hasStartedGame == false) {
+                if (Input.GetKeyDown(KeyCode.Return)) {
+                    Time.timeScale = 1f;
+                    Time.fixedDeltaTime = 1f;
+                    FindObjectOfType<FallTile_UIM>().closeStartCanvas();
+                    hasStartedGame = true;
+                }
+            }
+        }
         public void EndGame() {
             StartCoroutine(ShowResults());
         }
         IEnumerator ShowResults() {
             yield return new WaitForSeconds(10);
         }
-        public IEnumerator PlayerDeath() {
-            Time.timeScale = 1f / slowness;
-            Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;
-            yield return new WaitForSeconds(3);
-            Time.timeScale = defaultTimeScale;
-            Time.fixedDeltaTime = defaultFixedDefaultTime;
-        }
+
     }
 }

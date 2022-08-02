@@ -17,7 +17,7 @@ namespace MookCode.NPlayers
 		[SerializeField] private float m_TimeBetweenSlap = 1.2f;
 		[SerializeField] private bool m_AirControl = true;                         // Whether or not a player can steer while jumping;
 		[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-		[SerializeField] private LayerMask m_WhatIsBlock;
+		[SerializeField] private LayerMask m_WhatIsPlayer;
 		[SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 		[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 		[SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
@@ -55,11 +55,19 @@ namespace MookCode.NPlayers
 			bool wasGrounded = m_Grounded;
 			m_Grounded = false;
 
-			// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-			// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+			// check for jump on block layer
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 			for (int i = 0; i < colliders.Length; i++) {
 				if (colliders[i].gameObject != gameObject) {
+					m_Grounded = true;
+					if (!wasGrounded)
+						OnLandEvent.Invoke();
+				}
+			}
+			// check for jump on players layer
+			Collider2D[] pColliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsPlayer);
+			for (int i = 0; i < pColliders.Length; i++) {
+				if (pColliders[i].gameObject != gameObject) {
 					m_Grounded = true;
 					if (!wasGrounded)
 						OnLandEvent.Invoke();
@@ -69,11 +77,14 @@ namespace MookCode.NPlayers
         private void OnCollisionEnter2D(Collision2D col) {
 			Debug.Log(col);
 			Debug.Log(col.gameObject.layer);
-			Debug.Log(m_WhatIsBlock); // layer is not a layer mask
-			if (col.gameObject.layer == m_WhatIsBlock) {
-				Debug.Log("Die"); // not getting here
-				StartCoroutine(FindObjectOfType<FallTile_GM>().PlayerDeath());
-				Destroy(gameObject);	
+			if (col.gameObject.layer == 11) { // 11 == FallBlock layer
+				//Debug.Log("Die");
+				FindObjectOfType<StressReceiver>().InduceStress(.5f);
+				Destroy(gameObject);
+				Destroy(col.gameObject);
+			}
+			if (col.gameObject.layer == 13) { // 13 == Players layer
+				m_Grounded = true;
 			}
         }
 

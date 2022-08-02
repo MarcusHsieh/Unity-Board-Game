@@ -5,26 +5,43 @@
 using UnityEngine;
 
 
-namespace MookCode
+namespace MookCode._FallTile
 {
     public class BlockSpawner : MonoBehaviour {
 
         public Transform[] spawnPoints;
         public GameObject blockPrefab;
-        public float timeBetweenWaves = 4f;
-        public float timeToSpawn = 2f;
+        public float timeToSpawn1 = 2f;
+        public float timeToSpawn2 = 2f;
+        public float timeToSpawn3 = 2f;
+        public float wave2, wave3;
         float currTime;
+        private void Start() {
+            currTime = Time.time;
+            wave2 = currTime + 10f;
+            wave3 = currTime + 20f;
+        }
         private void Update() {
-            if (Time.time >= timeToSpawn) {
+            if (Time.time >= timeToSpawn1) {
                 SpawnBlocks();
                 currTime = Time.time;
-                timeToSpawn = currTime += timeBetweenWaves;
+                timeToSpawn1 = currTime + Random.Range(.5f, 1.5f);
+            }
+            if (Time.time >= wave2 && Time.time >= timeToSpawn2) {
+                SpawnBlocks();
+                currTime = Time.time;
+                timeToSpawn2 = currTime + Random.Range(.2f, 1f);
+            }
+            if (Time.time >= wave3 && Time.time >= timeToSpawn3) {
+                SpawnBlocks();
+                currTime = Time.time;
+                timeToSpawn3 = currTime + Random.Range(0, .5f);
             }
         }
         private void SpawnBlocks() {
             int randomIndex = Random.Range(0, spawnPoints.Length);
             for (int i = 0; i < spawnPoints.Length; i++) {
-                if (randomIndex != i) {
+                if (randomIndex == i) {
                     Instantiate(blockPrefab, spawnPoints[i].position, Quaternion.identity);
                 }
             }
