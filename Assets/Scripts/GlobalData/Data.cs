@@ -9,10 +9,18 @@ namespace MookCode.GlobalData
 {
     public class Data : MonoBehaviour {
 
+        // Barrels & Bushes
+        
         private static Data dataInstance;
 
         // minigames
         public static int[] coinWinnings = new int[4];
+        // reset all to false at the end I think
+        public static bool hasGameStarted = false;
+        public static bool hasGameEnded = false;
+        public static bool hasClosedResults = false;
+
+        public static int[] barrelsDodged = new int[4];
 
         // tile sprites
         public Sprite[] tileSpiteArr = new Sprite[4];

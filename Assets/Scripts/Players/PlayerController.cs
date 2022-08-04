@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using MookCode._FallTile;
+using MookCode.GlobalData;
 
 namespace MookCode.NPlayers
 {
@@ -77,9 +78,11 @@ namespace MookCode.NPlayers
         private void OnCollisionEnter2D(Collision2D col) {
 			Debug.Log(col);
 			Debug.Log(col.gameObject.layer);
-			if (col.gameObject.layer == 11) { // 11 == FallBlock layer
+			if (col.gameObject.layer == 11 && !Data.hasGameEnded) { // 11 == FallBlock layer
 				//Debug.Log("Die");
+
 				FindObjectOfType<StressReceiver>().InduceStress(.5f);
+				gameObject.GetComponent<PlayerMovement>().pDeath();
 				Destroy(gameObject);
 				Destroy(col.gameObject);
 			}

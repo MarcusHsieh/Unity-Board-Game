@@ -3,7 +3,8 @@
 //using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
-
+using MookCode.GlobalData;
+using MookCode._FallTile;
 
 namespace MookCode.NPlayers
 {
@@ -14,6 +15,7 @@ namespace MookCode.NPlayers
         string pJump;
         string pSlap;
         float horizontalMove = 0f;
+        bool pHasDied = false;
         bool jump = false;
         bool slap = false;
         void Start() {
@@ -50,11 +52,17 @@ namespace MookCode.NPlayers
                 slap = true;
             }
         }
+        public void pDeath() {
+            pHasDied = true;
+            FindObjectOfType<ResultsWindow>().nextDeath(gameObject.name);
+        }
 
         private void FixedUpdate() {
-            controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-            jump = false;
-            slap = false;
+            if (Data.hasGameStarted && !pHasDied) {
+                controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+                jump = false;
+                slap = false;
+            }
         }
     }
 }

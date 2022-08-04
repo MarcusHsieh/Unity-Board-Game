@@ -1,33 +1,79 @@
 // lets get coding mook!! ٩(●˙▿˙●)۶…⋆ฺ
 
 using System.Collections;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
-
+using MookCode.GlobalData;
 
 namespace MookCode._FallTile
 {
     public class FallTile_GM : MonoBehaviour {
-        private bool hasStartedGame = false;
+        bool isEndGame = false;
+        bool hasClosedResultsWindow = false;
+        GameObject[] barrels;
+
 
         private void Start() {
-            Time.timeScale = 0f; // instead of this enable/disable the spawner
-            Time.fixedDeltaTime = 0f;
+            StartCoroutine(StartCanvas());
+            Debug.Log("a");
+        }
+        private void Update() {
+            checkIfEndGame();
+        }
+        IEnumerator StartCanvas() {
             FindObjectOfType<FallTile_UIM>().openStartCanvas();
-            while (hasStartedGame == false) {
+            while (Data.hasGameStarted == false) {
                 if (Input.GetKeyDown(KeyCode.Return)) {
-                    Time.timeScale = 1f;
-                    Time.fixedDeltaTime = 1f;
+                    Data.hasGameStarted = true;
                     FindObjectOfType<FallTile_UIM>().closeStartCanvas();
-                    hasStartedGame = true;
+                }
+                yield return null;
+            }
+            yield break;
+        }
+        void checkIfEndGame() {
+            for (int i = 0; i < 3; i++) {
+                if (FindObjectOfType<ResultsWindow>().pPlacementsArr[i] != -1) {
+                    isEndGame = true;
+                }
+                else {
+                    isEndGame = false;
                 }
             }
+            if (isEndGame) {
+                Data.hasGameEnded = true;
+                EndGame();
+            }
         }
-        public void EndGame() {
+        void EndGame() {
             StartCoroutine(ShowResults());
         }
         IEnumerator ShowResults() {
-            yield return new WaitForSeconds(10);
+            FindObjectOfType<ResultsWindow>().setupResultsWindow();
+            FindObjectOfType<ResultsWindow>().openResultsCanvas();
+            while (!hasClosedResultsWindow) {
+                if (Input.GetKey(KeyCode.Return)) {
+                    hasClosedResultsWindow = true;
+                    FindObjectOfType<ResultsWindow>().closeResultsCanvas();
+                }
+                yield return null;
+            }
+            yield break;
+        }
+
+
+        private GameObject[] FindGameObjectsInLayer(int layer) {
+            GameObject[] barrelsArr = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+            List<GameObject> barrelsList = new List<GameObject>();
+            for (int i = 0; i < barrelsArr.Length; i++) {
+                if (barrelsArr[i].layer == layer) {
+                    barrelsList.Add(barrelsArr[i]);
+                }
+            }
+            if (barrelsList.Count == 0) {
+                return null; // if no gameobjects in layer
+            }
+            return barrelsList.ToArray();
         }
 
     }
