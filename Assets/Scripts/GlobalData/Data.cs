@@ -19,6 +19,7 @@ namespace MookCode.GlobalData
         public static bool hasGameStarted = false;
         public static bool hasGameEnded = false;
         public static bool hasClosedResults = false;
+        public static float timeSinceGameStart = 0f;
 
         public static int[] barrelsDodged = new int[4];
 

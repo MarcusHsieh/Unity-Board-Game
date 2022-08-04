@@ -29,32 +29,30 @@ namespace MookCode._FallTile
             if (Data.hasGameStarted && !Data.hasGameEnded) {
                 if (firstSetup) {
                     currTime = Time.time;
+                    Data.timeSinceGameStart = currTime;
                     wave2 = currTime + 10f;
                     wave3 = currTime + 20f;
                 }
                 if (Time.time >= timeToSpawn1) {
                     SpawnBlocks();
-                    barrelsSpawned++;
                     currTime = Time.time;
                     timeToSpawn1 = currTime + Random.Range(.5f, 1.5f);
                 }
                 if (Time.time >= wave2 && Time.time >= timeToSpawn2) {
                     SpawnBlocks();
-                    barrelsSpawned++;
                     currTime = Time.time;
                     timeToSpawn2 = currTime + Random.Range(.2f, 1f);
                 }
                 if (Time.time >= wave3 && Time.time >= timeToSpawn3) {
                     SpawnBlocks();
-                    barrelsSpawned++;
                     currTime = Time.time;
                     timeToSpawn3 = currTime + Random.Range(0, .5f);
                 }
                 firstSetup = false;
             }
-
         }
         private void SpawnBlocks() {
+            barrelsSpawned++;
             int randomIndex = Random.Range(0, spawnPoints.Length);
             for (int i = 0; i < spawnPoints.Length; i++) {
                 if (randomIndex == i) {

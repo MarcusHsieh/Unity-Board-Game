@@ -18,10 +18,12 @@ namespace MookCode._FallTile
             Debug.Log("a");
         }
         private void Update() {
-            checkIfEndGame();
+            if (!Data.hasGameEnded) {
+                checkIfEndGame();
+            }
         }
         IEnumerator StartCanvas() {
-            FindObjectOfType<FallTile_UIM>().openStartCanvas();
+            FindObjectOfType<FallTile_UIM>().openStartCanvas(); 
             while (Data.hasGameStarted == false) {
                 if (Input.GetKeyDown(KeyCode.Return)) {
                     Data.hasGameStarted = true;
@@ -38,6 +40,7 @@ namespace MookCode._FallTile
                 }
                 else {
                     isEndGame = false;
+                    break;
                 }
             }
             if (isEndGame) {
