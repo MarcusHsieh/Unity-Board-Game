@@ -10,17 +10,11 @@ namespace MookCode.FallTesty
 {
     public class testy : MonoBehaviour {
         void Start() {
-            Data.playersArrSave = 
+            /*Data.playersArrSave = 
                 "83\\13\\0|" +
                 "64\\26\\0|" +
                 "35\\46\\0|" +
-                "1\\1\\0";
-        }
-
-        void Update(){
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                SceneManager.LoadScene(0);
-            }
+                "1\\1\\0";*/
         }
     }
 }

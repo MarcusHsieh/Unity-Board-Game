@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MookCode.GlobalData;
 
 namespace MookCode._FallTile
@@ -58,6 +59,7 @@ namespace MookCode._FallTile
                 if (Input.GetKey(KeyCode.Return)) {
                     hasClosedResultsWindow = true;
                     FindObjectOfType<ResultsWindow>().closeResultsCanvas();
+                    SceneManager.LoadScene(0);
                 }
                 yield return null;
             }

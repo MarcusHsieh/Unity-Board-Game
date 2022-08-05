@@ -65,7 +65,7 @@ namespace MookCode._FallTile
                 notLastP = false;
             }
             pName = "P" + lastP.ToString();
-            setText(lastP, 4);
+            setText(lastP, 3);
             GameObject.Find(pName).GetComponent<RectTransform>().localPosition = placementsPosArr[3];
             //GameObject.Find(pName).GetComponentInChildren<TMP_Text>().text = $"{1}.{(Data.barrelsDodged[lastP]+1).ToString().PadLeft(25)}{playerData[0].PadLeft(11)}{playerData[1].PadLeft(12)}";
         }
@@ -76,7 +76,7 @@ namespace MookCode._FallTile
             Debug.Log("Text set");
             for (int k = 0; k < colNames.Length; k++) {
                 foreach (TMP_Text val in GameObject.Find(colNames[k]).GetComponentsInChildren<TMP_Text>()) {
-                    if (val.name == $"{4-n}") {
+                    if (val.name.Equals($"{3-n}")) {
                         if (k == 0) {
                             val.text = $"{Data.barrelsDodged[p]}";
                             Debug.Log("Set barrels");
