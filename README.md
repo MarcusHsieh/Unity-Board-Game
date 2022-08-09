@@ -10,11 +10,11 @@ My game is based off of the video game, Mario Party. It's basically a board game
 
 This is my first game idea that I'm trying to create and I wanted something simple, but also something that I enjoy and want to program. I've always had fun playing Mario Party with my friends, so I decided to go with my own version of Mario Party. 
 
-Mario Party is also filled with minigames, so I thought that I will be able to gain the most experience since I will have the chance to create multiple types of minigames rather than creating one game that has one focus. 
+Mario Party is also filled with minigames, so I thought that I will be able to gain the most experience since I will have the chance to create multiple types of minigames rather than creating one game that has one focus or idea. 
 
 ## In the works
 
-This is my 3rd iteration of the game. I scrapped the other two due to my ideas getting too complicated and wanting to simplify things. In my opinion, the best way to learn is through testing things out yourself and actually working on something that provides results rather than blindly following tutorials.
+This is my 3rd iteration of the game. I scrapped the other two due to my ideas getting too complicated and wanting to simplify things. In my opinion, the best way to learn is through testing things out yourself and actually working on something that provides results rather than blindly following tutorials. And that is exactly what I did with this project.
 
 ## 3rd iteration (Current)
 
@@ -22,7 +22,7 @@ This is my 3rd iteration of the game. I scrapped the other two due to my ideas g
 
 I decided to create my game in a 2D format so I can focus less on extra parts that the 3D format added and focus more on the programming aspect.
 
-Coroutines. Thank goodness I learned about coroutines since they saved me from countless boolean condition checks. I programmed my 3rd iteration somewhat similarly to my 2nd iteration, but since I was using a 2D format I was able to base my tile checks through the script instead of relying on onCollision checks. This went a lot more smoothly since I prefer and have much more trust in my own code. 
+Coroutines. Thank goodness I learned about coroutines since they saved me from countless boolean condition checks. I programmed my 3rd iteration somewhat similarly to my 2nd iteration, but since I am using a 2D format I am able to base my tile checks through the script instead of relying on onCollision checks. This went a lot more smoothly since I prefer and have much more trust in my own code. 
 
 ### Ideas that were implemented (Light summary):
 
@@ -39,7 +39,7 @@ Coroutines. Thank goodness I learned about coroutines since they saved me from c
 
 ![3rd Iteration Gameboard](doc/3Iter_Gameboard.jpg)
 
-I completed the gameboard and was able to create my first minigame (Barrel Barrage) which was basically a dodge the falling blocks survival game where the last player standing wins. 
+I completed the gameboard and was able to create my first minigame (Barrel Barrage) which is basically a dodge the falling blocks survival game where the last player standing wins. 
 
 ![Barrel Barrage Minigame](doc/Minigame_BarrelBarrage.jpg)
 
@@ -64,7 +64,7 @@ This iteration I created a simple 12 tile circular looping board in a 4x4 format
 
 ![2nd Iteration Gameboard](doc/2Iter_Gameboard.jpg)
 
-    Problems that led me to move to the 3rd iteration
+### Problems that led me to move to the 3rd iteration
 - Relying on physics for dice roll
 - Tons of boolean condition checks 
 - When passing/landing on a trophy tile, the game would freeze because it would get stuck in a while loop. 
