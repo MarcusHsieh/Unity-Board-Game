@@ -39,6 +39,8 @@ Coroutines. Thank goodness I learned about coroutines since they saved me from c
 
 I completed the gameboard and was able to create my first minigame (Barrel Barrage) which was basically a dodge the falling blocks survival game where the last player standing wins. 
 
+![Barrel Barrage Minigame](doc/Minigame_BarrelBarrage.jpg)
+
 ### 2nd iteration
 
 **3D Unity format**
