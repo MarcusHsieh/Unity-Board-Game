@@ -8,13 +8,15 @@ My game is based off of the video game, Mario Party. It's basically a board game
 
 ## Why this?
 
-This is my first game idea that I'm trying to create and I wanted something simple, but also something that I enjoy and want to program. I've always had fun playing Mario Party with friends, so I decided to go with my own version of Mario Party. 
+This is my first game idea that I'm trying to create and I wanted something simple, but also something that I enjoy and want to program. I've always had fun playing Mario Party with my friends, so I decided to go with my own version of Mario Party. 
+
+Mario Party is also filled with minigames, so I thought that I will be able to gain the most experience since I will have the chance to create multiple types of minigames rather than creating one game that has one focus. 
 
 ## In the works
 
-This is my 3rd iteration of the game. I scrapped the other two due to my ideas getting too complicated and wanting to simplify things. 
+This is my 3rd iteration of the game. I scrapped the other two due to my ideas getting too complicated and wanting to simplify things. In my opinion, the best way to learn is through testing things out yourself and actually working on something that provides results rather than blindly following tutorials.
 
-### 3rd iteration (Current)
+## 3rd iteration (Current)
 
 **2D Unity format**
 
@@ -22,7 +24,7 @@ I decided to create my game in a 2D format so I can focus less on extra parts th
 
 Coroutines. Thank goodness I learned about coroutines since they saved me from countless boolean condition checks. I programmed my 3rd iteration somewhat similarly to my 2nd iteration, but since I was using a 2D format I was able to base my tile checks through the script instead of relying on onCollision checks. This went a lot more smoothly since I prefer and have much more trust in my own code. 
 
-#### Ideas that were implemented (Light summary):
+### Ideas that were implemented (Light summary):
 
 - Players (Colored sprites) that move from tile to tile
   - Movement system for minigame
@@ -41,7 +43,7 @@ I completed the gameboard and was able to create my first minigame (Barrel Barra
 
 ![Barrel Barrage Minigame](doc/Minigame_BarrelBarrage.jpg)
 
-### 2nd iteration
+## 2nd iteration
 
 **3D Unity format**
 
@@ -49,7 +51,7 @@ Although I am fluent in a few languages and C# is quite similar to Java, I wasn'
 
 This iteration I created a simple 12 tile circular looping board in a 4x4 format. 
 
-#### Ideas that were implemented (Light summary):
+### Ideas that were implemented (Light summary):
 - Players (Cubes with different colors) that move from tile to tile
 - Turn system, each turn goes through the player rolling, player moving, event running, then next player
 - Different tile types indicated by color that invoked events when a player lands on it such as a (+) Coin Tile which adds 3 coins to the player who landed on it or a (-) Coin Tile which subtracts 3 coins.
@@ -71,7 +73,7 @@ This is when I discovered coroutines which would allow the program to wait for a
 
 Since this was before I started using Github for version control (I was using Unity Collaborate/PlasticSCM), you can check out the commits for my 2nd iteration [here](https://docs.google.com/spreadsheets/d/1cn0DWHTvo3dd97a4EJ4dYoG9YeD8FlaakJX0QdDfZH0/edit?usp=sharing).
 
-### 1st iteration
+## 1st iteration
 
 **3D Unity format**
 
