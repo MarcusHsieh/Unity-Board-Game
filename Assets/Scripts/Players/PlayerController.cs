@@ -17,7 +17,7 @@ namespace MookCode.NPlayers
 		[Range(0, 1)][SerializeField] private float m_CrouchSpeed = .36f;           // Amount of maxSpeed applied to crouching movement  1 = 100%
 		[Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;   // How much to smooth out the movement
 		[SerializeField] private float m_TimeBetweenDash = 1.2f;                    // Amount of time between each slap
-		[SerializeField] private float m_TimeBeforeNextDash = 0f;                   // m_TimeBeforeNextDash = m_TimeBetweenDash + Time.DeltaTime
+		[SerializeField] private float m_TimeBeforeNextDash = 0f;                   // m_TimeBeforeNextDash = m_TimeBetweenDash + Time.time
 		[SerializeField] private float m_Direction = 1f;                            // +1 (right) or -1 (left) for dash direction
 		[SerializeField] private bool m_AirControl = true;                         // Whether or not a player can steer while jumping;
 		[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character

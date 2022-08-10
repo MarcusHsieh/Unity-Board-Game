@@ -11,12 +11,10 @@ namespace MookCode._FallTile
     public class FallTile_GM : MonoBehaviour {
         bool isEndGame = false;
         bool hasClosedResultsWindow = false;
-        GameObject[] barrels;
-
 
         private void Start() {
             StartCoroutine(StartCanvas());
-            Debug.Log("a");
+            Debug.Log("Starting Barrel Barrage");
         }
         private void Update() {
             if (!Data.hasGameEnded) {

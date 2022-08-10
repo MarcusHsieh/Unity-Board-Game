@@ -29,7 +29,11 @@ namespace MookCode.Core
                 setPlayersArr();
                 sortPlayersArr();
                 loadPlayerArr();
-                
+                FindObjectOfType<PStatWindow>().updateStats();
+                Data.hasGameEnded = false;
+                Data.hasGameStarted = false;
+                Data.hasClosedResults = false;
+                Data.timeSinceGameStart = 0f;
             }
             if (!gm_Initialized) {
                 setTileArr();
@@ -196,6 +200,7 @@ namespace MookCode.Core
         // 3
         private void loadPlayerArr() {
             // MoveTowards curr tile
+            Debug.Log(Data.playersArrSave);
             int n = 0;
             string[] players = Data.playersArrSave.Split('|');
             string[] tempPlayer;

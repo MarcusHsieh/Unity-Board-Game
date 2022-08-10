@@ -6,7 +6,7 @@ namespace MookCode._FallTile {
     public class Block : MonoBehaviour {
 
         private void Start() {
-            float timeSinceStart = Data.timeSinceGameStart - Time.deltaTime;
+            float timeSinceStart = Time.time - Data.timeSinceGameStart;
             GetComponent<Rigidbody2D>().gravityScale += timeSinceStart / 20f;
         }
         private void Update() {

@@ -14,7 +14,7 @@ namespace MookCode.GlobalData
         private static Data dataInstance;
 
         // minigames
-        public static int[] coinWinnings = new int[4];
+        public static int[] coinWinnings = { 8, 5, 3, 1 };
         // reset all to false at the end I think
         public static bool hasGameStarted = false;
         public static bool hasGameEnded = false;
